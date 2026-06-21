@@ -17,6 +17,7 @@ import builder from "./builder.ts";
 
 export const Account = builder.drizzleNode("accounts", {
   name: "Account",
+  description: "Represents an `Account` in the DrFed platform.",
   id: {
     column(account) {
       return account.id;

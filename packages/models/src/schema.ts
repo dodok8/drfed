@@ -16,6 +16,9 @@
 import { sql } from "drizzle-orm";
 import { uuid, varchar, pgTable, check, timestamp } from "drizzle-orm/pg-core";
 
+/**
+ * The database table to represent accounts.
+ */
 export const accounts = pgTable(
   "accounts",
   {
@@ -33,6 +36,9 @@ export const accounts = pgTable(
   ],
 );
 
+/**
+ * The database table to represent instances.
+ */
 export const instances = pgTable(
   "instances",
   {
@@ -52,6 +58,9 @@ export const instances = pgTable(
   ],
 );
 
+/**
+ * The association table between instances and its member accounts.
+ */
 export const instanceMembers = pgTable("instance_members", {
   instanceId: uuid()
     .notNull()

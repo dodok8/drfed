@@ -17,6 +17,7 @@ import builder from "./builder.ts";
 
 export const Instance = builder.drizzleNode("instances", {
   name: "Instance",
+  description: "Represents an `Instance` in the DrFed platform.",
   id: {
     column(instance) {
       return instance.id;
