@@ -89,6 +89,15 @@
         }
       ]
     },
+    "Markdown": {
+      "format_on_save": "on",
+      "formatter": {
+        "external": {
+          "command": "hongdown",
+          "arguments": ["-"]
+        }
+      }
+    },
     "TypeScript": {
       "format_on_save": "on",
       "prettier": {
@@ -114,15 +123,6 @@
           }
         }
       ]
-    },
-    "Markdown": {
-      "format_on_save": "on",
-      "formatter": {
-        "external": {
-          "command": "hongdown",
-          "arguments": ["-"]
-        }
-      }
     },
     "YAML": {
       "format_on_save": "on",

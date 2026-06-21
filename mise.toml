@@ -2,11 +2,11 @@ min_version = "2026.6.10"
 
 [tools]
 "aqua:dahlia/hongdown" = "0.4.3"
-"aqua:oxc-project/oxc/oxfmt" = "1.70.0"
 "github:nushell/nushell" = "latest"
 node = "26"
 "npm:@typescript/native-preview" = "7.0.0-dev.20260620.1"
 "npm:pglite-cli" = "latest"
+oxfmt = "0.55.0"
 pnpm = "11"
 
 [deps.pnpm]
