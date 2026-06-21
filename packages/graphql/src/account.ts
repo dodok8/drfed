@@ -17,7 +17,9 @@ import builder from "./builder.ts";
 
 export const Account = builder.drizzleNode("accounts", {
   name: "Account",
-  description: "Represents an `Account` in the DrFed platform.",
+  description:
+    "Represents an `Account` in the DrFed platform.  " +
+    "Note that it differs from the ActivityPub `Actor`s that belong to `Instance`s.",
   id: {
     column(account) {
       return account.id;
