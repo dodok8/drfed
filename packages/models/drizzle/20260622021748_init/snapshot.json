@@ -1,7 +1,7 @@
 {
   "version": "8",
   "dialect": "postgres",
-  "id": "e399ae79-2d5c-4f12-b5e7-8d602703fcc1",
+  "id": "2cffbe98-208b-4301-ad32-8c2e3e74928f",
   "prevIds": ["00000000-0000-0000-0000-000000000000"],
   "ddl": [
     {
@@ -179,19 +179,19 @@
       "table": "instance_members"
     },
     {
+      "columns": ["instanceId", "accountId"],
+      "nameExplicit": false,
+      "name": "instance_members_pkey",
+      "entityType": "pks",
+      "schema": "public",
+      "table": "instance_members"
+    },
+    {
       "columns": ["id"],
       "nameExplicit": false,
       "name": "accounts_pkey",
       "schema": "public",
       "table": "accounts",
-      "entityType": "pks"
-    },
-    {
-      "columns": ["instanceId"],
-      "nameExplicit": false,
-      "name": "instance_members_pkey",
-      "schema": "public",
-      "table": "instance_members",
       "entityType": "pks"
     },
     {

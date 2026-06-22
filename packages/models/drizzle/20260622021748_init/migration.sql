@@ -6,9 +6,10 @@ CREATE TABLE "accounts" (
 );
 --> statement-breakpoint
 CREATE TABLE "instance_members" (
-	"instanceId" uuid PRIMARY KEY,
-	"accountId" uuid NOT NULL,
-	"created" timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+	"instanceId" uuid,
+	"accountId" uuid,
+	"created" timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	CONSTRAINT "instance_members_pkey" PRIMARY KEY("instanceId","accountId")
 );
 --> statement-breakpoint
 CREATE TABLE "instances" (

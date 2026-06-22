@@ -14,7 +14,14 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 import { sql } from "drizzle-orm";
-import { uuid, varchar, pgTable, check, timestamp } from "drizzle-orm/pg-core";
+import {
+  uuid,
+  varchar,
+  pgTable,
+  check,
+  timestamp,
+  primaryKey,
+} from "drizzle-orm/pg-core";
 
 /**
  * The database table to represent accounts.
@@ -61,16 +68,18 @@ export const instances = pgTable(
 /**
  * The association table between instances and its member accounts.
  */
-export const instanceMembers = pgTable("instance_members", {
-  instanceId: uuid()
-    .notNull()
-    .primaryKey()
-    .references(() => instances.id),
-  accountId: uuid()
-    .notNull()
-    .primaryKey()
-    .references(() => accounts.id),
-  created: timestamp({ withTimezone: true })
-    .notNull()
-    .default(sql`CURRENT_TIMESTAMP`),
-});
+export const instanceMembers = pgTable(
+  "instance_members",
+  {
+    instanceId: uuid()
+      .notNull()
+      .references(() => instances.id),
+    accountId: uuid()
+      .notNull()
+      .references(() => accounts.id),
+    created: timestamp({ withTimezone: true })
+      .notNull()
+      .default(sql`CURRENT_TIMESTAMP`),
+  },
+  (table) => [primaryKey({ columns: [table.instanceId, table.accountId] })],
+);
