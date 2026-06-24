@@ -179,9 +179,10 @@ release, such as lockfile updates or changelog edits.
 Source license headers
 ----------------------
 
-DrFed is licensed under the [GNU Affero General Public License v3].  New source
-files must start with the existing AGPL header.  For TypeScript, JavaScript,
-*.mjs*, and *.mts* files, use this form before imports:
+DrFed is licensed under the [GNU Affero General Public License v3].  Every new
+source file (including test files matching *.test.ts* and management scripts
+under *scripts/*) must start with the existing AGPL header.  For TypeScript,
+JavaScript, *.mjs*, and *.mts* files, use this form before imports:
 
 ~~~~ ts
 // DrFed: A web-based platform for developing and debugging ActivityPub apps
