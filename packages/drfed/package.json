@@ -60,18 +60,18 @@
   },
   "devDependencies": {
     "@types/node": "catalog:",
-    "@types/pg": "^8.20.0",
+    "@types/pg": "catalog:",
     "tsdown": "catalog:",
     "typescript": "catalog:"
   },
   "dependencies": {
     "@drfed/graphql": "workspace:*",
     "@drfed/models": "workspace:*",
-    "@electric-sql/pglite": "^0.5.3",
+    "@electric-sql/pglite": "catalog:",
     "@optique/core": "^1.1.0",
     "@optique/run": "^1.1.0",
     "drizzle-orm": "catalog:",
-    "pg": "^8.21.0",
+    "pg": "catalog:",
     "srvx": "^0.11.16"
   }
 }

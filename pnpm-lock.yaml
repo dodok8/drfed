@@ -6,12 +6,21 @@ settings:
 
 catalogs:
   default:
+    '@electric-sql/pglite':
+      specifier: ^0.5.3
+      version: 0.5.3
     '@types/node':
       specifier: ^26.0.0
       version: 26.0.0
+    '@types/pg':
+      specifier: ^8.20.0
+      version: 8.20.0
     drizzle-orm:
       specifier: 1.0.0-beta.22
       version: 1.0.0-beta.22
+    pg:
+      specifier: ^8.21.0
+      version: 8.21.0
     tsdown:
       specifier: ^0.22.3
       version: 0.22.3
@@ -30,7 +39,7 @@ importers:
         specifier: workspace:*
         version: link:../models
       '@electric-sql/pglite':
-        specifier: ^0.5.3
+        specifier: 'catalog:'
         version: 0.5.3
       '@optique/core':
         specifier: ^1.1.0
@@ -42,7 +51,7 @@ importers:
         specifier: 'catalog:'
         version: 1.0.0-beta.22(@electric-sql/pglite@0.5.3)(@types/pg@8.20.0)(pg@8.21.0)
       pg:
-        specifier: ^8.21.0
+        specifier: 'catalog:'
         version: 8.21.0
       srvx:
         specifier: ^0.11.16
@@ -52,7 +61,7 @@ importers:
         specifier: 'catalog:'
         version: 26.0.0
       '@types/pg':
-        specifier: ^8.20.0
+        specifier: 'catalog:'
         version: 8.20.0
       tsdown:
         specifier: 'catalog:'
@@ -88,6 +97,9 @@ importers:
         specifier: ^5.21.2
         version: 5.21.2(graphql@16.14.2)
     devDependencies:
+      '@electric-sql/pglite':
+        specifier: 'catalog:'
+        version: 0.5.3
       '@types/node':
         specifier: 'catalog:'
         version: 26.0.0
@@ -101,20 +113,20 @@ importers:
   packages/models:
     dependencies:
       '@electric-sql/pglite':
-        specifier: ^0.5.3
+        specifier: 'catalog:'
         version: 0.5.3
       drizzle-orm:
         specifier: 'catalog:'
         version: 1.0.0-beta.22(@electric-sql/pglite@0.5.3)(@types/pg@8.20.0)(pg@8.21.0)
       pg:
-        specifier: ^8.21.0
+        specifier: 'catalog:'
         version: 8.21.0
     devDependencies:
       '@types/node':
         specifier: 'catalog:'
         version: 26.0.0
       '@types/pg':
-        specifier: ^8.20.0
+        specifier: 'catalog:'
         version: 8.20.0
       drizzle-kit:
         specifier: 1.0.0-beta.22
