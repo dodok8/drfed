@@ -91,6 +91,7 @@
     "test": "node --test"
   },
   "devDependencies": {
+    "@logtape/testing-node": "catalog:",
     "@types/node": "catalog:",
     "@types/pg": "catalog:",
     "drizzle-kit": "1.0.0-beta.22",

@@ -59,6 +59,7 @@
     "build": "tsdown"
   },
   "devDependencies": {
+    "@logtape/testing-node": "catalog:",
     "@types/node": "catalog:",
     "@types/pg": "catalog:",
     "tsdown": "catalog:",

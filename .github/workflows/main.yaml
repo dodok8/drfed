@@ -36,3 +36,5 @@ jobs:
       - run: mise test
         env:
           MISE_LOG_LEVEL: ${{ runner.debug == '1' && 'trace' || 'info' }}
+          LOGTAPE_TEST_MODE: ${{ runner.debug == '1' && 'always' || 'on-failure' }}
+          LOGTAPE_TEST_LOWEST_LEVEL: ${{ runner.debug == '1' && 'trace' || 'debug' }}

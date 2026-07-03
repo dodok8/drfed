@@ -66,6 +66,8 @@ run = "pnpm run --parallel --recursive build"
 description = "Run tests"
 depends = ["build"]
 run = "pnpm run --parallel --recursive test"
+env.LOGTAPE_TEST_MODE = "on-failure"
+env.LOGTAPE_TEST_LOWEST_LEVEL = "debug"
 
 [tasks.bump]
 description = "Bump all package versions"
