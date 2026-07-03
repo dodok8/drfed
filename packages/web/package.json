@@ -1,6 +1,43 @@
 {
   "name": "@drfed/web",
   "version": "0.1.0",
+  "description": "A SolidStart Frontend for DrFed.",
+  "keywords": [
+    "ActivityPub",
+    "fediverse",
+    "federation",
+    "debugger"
+  ],
+  "author": {
+    "name": "DrFed team",
+    "url": "https://drfed.org/"
+  },
+  "maintainers": [
+    {
+      "name": "ChanHaeng Lee",
+      "email": "2chanhaeng@gmail.com",
+      "url": "https://chomu.dev/"
+    },
+    {
+      "name": "Hong Minhee",
+      "email": "hong@minhee.org",
+      "url": "https://hongminhee.org/"
+    },
+    {
+      "name": "Hyeonseo Kim",
+      "email": "dodok8@gmail.com",
+      "url": "https://hackers.pub/@gaebalgom"
+    },
+    {
+      "name": "Jiwon Kwon",
+      "email": "work@kwonjiwon.org",
+      "url": "https://kwonjiwon.org/"
+    }
+  ],
+  "license": "AGPL-3.0-only",
+  "engines": {
+    "node": ">=26.0.0"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite dev",
