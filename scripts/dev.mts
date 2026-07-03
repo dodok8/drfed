@@ -13,10 +13,10 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
-// oxlint-disable no-console no-magic-numbers
+// oxlint-disable no-console no-magic-numbers eslin/max-lines
 import { type ChildProcess, spawn } from "node:child_process";
 import { existsSync } from "node:fs";
-import { readdir, rm } from "node:fs/promises";
+import { readFile, readdir, rm } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
@@ -36,17 +36,56 @@ const packagesDir = join(root, "packages");
 const isWindows = process.platform === "win32";
 const pnpm = isWindows ? "pnpm.cmd" : "pnpm";
 
-async function removeDistDirs() {
+/**
+ * Filter packages that should be build with tsdown
+ * @returns packages with tsdown dev dep.
+ */
+async function getTsdownPackages() {
   const packages = await readdir(packagesDir, { withFileTypes: true });
+  const packageDirs = packages.filter((entry) => entry.isDirectory());
+
+  const packageChecks = await Promise.all(
+    packageDirs.map(async (entry) => {
+      const fullPath = join(entry.parentPath, entry.name, "package.json");
+
+      try {
+        const packageText = await readFile(fullPath, "utf8");
+        const packageData = JSON.parse(packageText) satisfies {
+          readonly tsdown?: unknown;
+          readonly scripts?: Record<string, string>;
+          readonly devDependencies?: Record<string, string>;
+        };
+
+        return {
+          entry,
+          usesTsdown:
+            packageData.tsdown != null ||
+            packageData.scripts?.build === "tsdown" ||
+            packageData.devDependencies?.tsdown != null,
+        };
+      } catch {
+        return {
+          entry,
+          usesTsdown: false,
+        };
+      }
+    }),
+  );
+
+  return packageChecks
+    .filter((result) => result.usesTsdown)
+    .map((result) => result.entry);
+}
+
+async function removeDistDirs() {
+  const packages = await getTsdownPackages();
   await Promise.all(
-    packages
-      .filter((entry) => entry.isDirectory())
-      .map((entry) =>
-        rm(join(packagesDir, entry.name, "dist"), {
-          force: true,
-          recursive: true,
-        }),
-      ),
+    packages.map((entry) =>
+      rm(join(packagesDir, entry.name, "dist"), {
+        force: true,
+        recursive: true,
+      }),
+    ),
   );
 }
 
@@ -84,20 +123,18 @@ async function waitForBuilds(buildExit: Promise<ExitResult>): Promise<void> {
     }
 
     // oxlint-disable-next-line no-await-in-loop
-    const packages = await readdir(packagesDir, { withFileTypes: true });
+    const packages = await getTsdownPackages();
     // oxlint-disable-next-line no-await-in-loop
     const allGenerated = await Promise.all(
-      packages
-        .filter((entry) => entry.isDirectory())
-        .map(async (entry) => {
-          const distDir = join(packagesDir, entry.name, "dist");
-          // oxlint-disable-next-line no-sync
-          if (!existsSync(distDir)) {
-            return false;
-          }
-          const entries = await readdir(distDir);
-          return entries.length > 0;
-        }),
+      packages.map(async (entry) => {
+        const distDir = join(packagesDir, entry.name, "dist");
+        // oxlint-disable-next-line no-sync
+        if (!existsSync(distDir)) {
+          return false;
+        }
+        const entries = await readdir(distDir);
+        return entries.length > 0;
+      }),
     );
     if (allGenerated.every(Boolean)) {
       return;
@@ -115,6 +152,7 @@ async function shutdown(
 ): Promise<void> {
   if (shuttingDown) {
     forceKill(serverProcess);
+    forceKill(webProcess);
     forceKill(buildProcess);
     process.exit(exitCode);
   }
@@ -124,6 +162,7 @@ async function shutdown(
     options.skipServer
       ? Promise.resolve()
       : terminate(serverProcess, signal === "SIGINT" ? "SIGINT" : "SIGTERM"),
+    terminate(webProcess, "SIGTERM"),
     terminate(buildProcess, "SIGTERM"),
   ]);
   process.exit(exitCode);
@@ -226,6 +265,7 @@ function sleep(ms: number): Promise<void> {
 
 let buildProcess: ChildProcess | undefined;
 let serverProcess: ChildProcess | undefined;
+let webProcess: ChildProcess | undefined;
 let shuttingDown = false;
 
 process.on("SIGINT", () => {
@@ -236,11 +276,23 @@ process.on("SIGTERM", () => {
 });
 
 try {
+  const tsdownPackages = await getTsdownPackages();
   await removeDistDirs();
 
   buildProcess = spawnManaged(
     pnpm,
-    ["--parallel", "--recursive", "exec", "tsdown", "--watch", "--no-clean"],
+    [
+      "--parallel",
+      "--recursive",
+      ...tsdownPackages.flatMap((entry) => [
+        "--filter",
+        `{./packages/${entry.name}}`,
+      ]),
+      "exec",
+      "tsdown",
+      "--watch",
+      "--no-clean",
+    ],
     root,
   );
   const buildExit = waitForExit(buildProcess);
@@ -272,12 +324,32 @@ try {
     serverArgs,
     join(root, "packages", "drfed"),
   );
-  const serverExit = await waitForExit(serverProcess);
-  if (serverExit.error != null) {
-    throw serverExit.error;
+  webProcess = spawnManaged(
+    pnpm,
+    ["run", "dev"],
+    join(root, "packages", "web"),
+  );
+
+  const serverExit = (async () => ({
+    name: "server" as const,
+    result: await waitForExit(serverProcess),
+  }))();
+
+  const webExit = (async () => ({
+    name: "web" as const,
+    result: await waitForExit(webProcess),
+  }))();
+
+  const firstExit = await Promise.race([serverExit, webExit]);
+
+  if (firstExit.result.error != null) {
+    throw firstExit.result.error;
   }
-  const exitCode = serverExit.code ?? signalExitCode(serverExit.signal) ?? 1;
-  await shutdown(exitCode, "SIGTERM", { skipServer: true });
+  const exitCode =
+    firstExit.result.code ?? signalExitCode(firstExit.result.signal) ?? 1;
+  await shutdown(exitCode, "SIGTERM", {
+    skipServer: firstExit.name === "server",
+  });
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   await shutdown(1, "SIGTERM");
