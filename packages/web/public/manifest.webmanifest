@@ -1,21 +1,13 @@
 {
-  "name": "My Website",
+  "name": "drfed",
   "icons": [
+    { "src": "/icon-192.png", "type": "image/png", "sizes": "192x192" },
     {
-      "src": "favicon-192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "favicon-512.png",
+      "src": "/icon-mask.png",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "maskable"
     },
-    {
-      "src": "favicon-512.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
+    { "src": "/icon-512.png", "type": "image/png", "sizes": "512x512" }
   ]
 }
