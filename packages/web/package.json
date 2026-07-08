@@ -1,0 +1,59 @@
+{
+  "name": "@drfed/web",
+  "version": "0.1.0",
+  "description": "A SolidStart frontend for DrFed.",
+  "keywords": [
+    "ActivityPub",
+    "fediverse",
+    "federation",
+    "debugger"
+  ],
+  "author": {
+    "name": "DrFed team",
+    "url": "https://drfed.org/"
+  },
+  "maintainers": [
+    {
+      "name": "ChanHaeng Lee",
+      "email": "2chanhaeng@gmail.com",
+      "url": "https://chomu.dev/"
+    },
+    {
+      "name": "Hong Minhee",
+      "email": "hong@minhee.org",
+      "url": "https://hongminhee.org/"
+    },
+    {
+      "name": "Hyeonseo Kim",
+      "email": "dodok8@gmail.com",
+      "url": "https://hackers.pub/@gaebalgom"
+    },
+    {
+      "name": "Jiwon Kwon",
+      "email": "work@kwonjiwon.org",
+      "url": "https://kwonjiwon.org/"
+    }
+  ],
+  "license": "AGPL-3.0-only",
+  "engines": {
+    "node": ">=26.0.0"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "start": "vite start",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@solidjs/meta": "^0.29.4",
+    "@solidjs/router": "^0.15.0",
+    "@solidjs/start": "2.0.0-alpha.2",
+    "@solidjs/vite-plugin-nitro-2": "^0.1.0",
+    "solid-js": "^1.9.5",
+    "vite": "^7.0.0"
+  },
+  "devDependencies": {
+    "eslint-plugin-solid": "^0.14.5"
+  }
+}

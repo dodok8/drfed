@@ -1,3 +1,5 @@
+.DS_Store
+
 .pgdata/
 node_modules/
 packages/*/dist/
