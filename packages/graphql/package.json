@@ -88,7 +88,6 @@
     "@electric-sql/pglite": "catalog:",
     "@logtape/testing-node": "catalog:",
     "@types/node": "catalog:",
-    "@upyo/mock": "^0.5.0",
     "tsdown": "catalog:",
     "typescript": "catalog:"
   },
@@ -102,6 +101,7 @@
     "@pothos/plugin-errors": "^4.9.1",
     "@pothos/plugin-relay": "^4.7.0",
     "@upyo/core": "^0.5.0",
+    "@upyo/mock": "^0.5.0",
     "drizzle-orm": "catalog:",
     "graphql": "^16.14.2",
     "graphql-scalars": "^1.25.0",
