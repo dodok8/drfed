@@ -20,7 +20,7 @@ import { getLogger } from "@logtape/logtape";
 import { VerifyUrlExpandingError } from "./errors.ts";
 
 export interface ExpandVerifyUrlParams {
-  template: string | undefined | null;
+  template: Template | undefined | null;
   token: `${string}-${string}-${string}-${string}-${string}`;
   code: string;
   origins: ReadonlySet<string>;
@@ -49,8 +49,8 @@ export default function expandVerifyUrl({
   }
 }
 
-function expandUrl(template: string, token: string, code: string) {
-  const expanded = Template.parse(template).expand({ token, code });
+function expandUrl(template: Template, token: string, code: string) {
+  const expanded = template.expand({ token, code });
   if (!(expanded.includes(token) && expanded.includes(code))) {
     throw new VerifyUrlExpandingError(
       // oxlint-disable-next-line prefer-template

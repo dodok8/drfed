@@ -17,9 +17,12 @@ import { createYogaServer } from "@drfed/graphql";
 import type { ServerContext, UserContext } from "@drfed/graphql/builder";
 import { type Database, migrate, relations, schema } from "@drfed/models";
 import { PGlite } from "@electric-sql/pglite";
+import { getLogger } from "@logtape/logtape";
 import { MockTransport } from "@upyo/mock";
 import { drizzle } from "drizzle-orm/pglite";
 import type { YogaServerInstance } from "graphql-yoga";
+
+const logger = getLogger(["drfed", "graphql", "test"]);
 
 const testEndpoint = "http://drfed.test/graphql";
 
@@ -167,19 +170,24 @@ export async function withTestHarness<T>(
       mailer,
       fetch,
       yoga,
-      post(body, init) {
+      async post(body, init) {
         const headers = new Headers(init?.headers);
         if (!headers.has("content-type")) {
           headers.set("content-type", "application/json");
         }
-        return Promise.resolve(
-          fetch(testEndpoint, {
-            ...init,
-            body: JSON.stringify(body),
-            headers,
-            method: "POST",
-          }),
-        );
+        const response = await fetch(testEndpoint, {
+          ...init,
+          body: JSON.stringify(body),
+          headers,
+          method: "POST",
+        });
+        if (!response.ok) {
+          logger.error(
+            "GraphQL request failed with status {response.status} {response.statusText}:\n{body}",
+            { response, body: await response.text() },
+          );
+        }
+        return response;
       },
     };
 

@@ -17,9 +17,9 @@
 // oxlint-disable max-lines-per-function max-statements no-magic-numbers
 
 import { deepEqual, equal, ok } from "node:assert/strict";
-import { describe, it } from "node:test";
 
 import { schema } from "@drfed/models";
+import { describe, it } from "@logtape/testing-node/autoload";
 
 import { withTestHarness } from "./harness.test.ts";
 
@@ -29,7 +29,7 @@ const email = "noreply@drfed.org";
 const verifyUrl = "https://drfed.org/transports/mock?token={token}&code={code}";
 
 const loginMutation = `
-  mutation Login($email: Email!, $verifyUrl: String) {
+  mutation Login($email: Email!, $verifyUrl: URITemplate) {
     loginByEmail(email: $email, verifyUrl: $verifyUrl) {
       ... on SendMail {
         token

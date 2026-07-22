@@ -47,7 +47,7 @@ builder.mutationFields((t) => ({
         description: "The email address of the `Account`.",
       }),
       verifyUrl: t.arg({
-        type: "String",
+        type: "URITemplate",
         required: false,
         description:
           "The URL's origin must be in the server's allowlist. " +

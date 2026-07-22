@@ -16,6 +16,7 @@
 
 import { type Database, normalizeEmail, relations } from "@drfed/models";
 import type { Account, Session } from "@drfed/models/schema";
+import { Template } from "@fedify/uri-template";
 import SchemaBuilder, { type ObjectRef } from "@pothos/core";
 import DrizzlePlugin from "@pothos/plugin-drizzle";
 import ErrorsPlugin from "@pothos/plugin-errors";
@@ -87,6 +88,10 @@ export interface SchemaTypes {
       Input: string;
       Output: string;
     };
+    URITemplate: {
+      Input: Template;
+      Output: Template;
+    };
   };
   DefaultFieldNullability: false;
   DrizzleRelations: typeof relations;
@@ -125,6 +130,18 @@ builder.scalarType("Email", {
 });
 
 builder.addScalarType("UUID", UUIDResolver);
+
+builder.scalarType("URITemplate", {
+  parseValue(v) {
+    if (v instanceof Template) {
+      return v;
+    }
+    return Template.parse(String(v));
+  },
+  serialize(v) {
+    return v.toString();
+  },
+});
 
 export const Node = builder.nodeInterfaceRef();
 
