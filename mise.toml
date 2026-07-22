@@ -1,7 +1,6 @@
 min_version = "2026.6.10"
 
 [tools]
-"aqua:axllent/mailpit" = "latest"
 "aqua:dahlia/hongdown" = "0.4.3"
 "github:nushell/nushell" = "latest"
 node = "26"

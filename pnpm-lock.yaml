@@ -21,15 +21,33 @@ catalogs:
     '@logtape/testing-node':
       specifier: 2.3.0-dev.840
       version: 2.3.0-dev.840
+    '@optique/core':
+      specifier: ^1.2.0
+      version: 1.2.0
     '@optique/logtape':
-      specifier: ^1.1.1
-      version: 1.1.1
+      specifier: ^1.2.0
+      version: 1.2.0
+    '@optique/run':
+      specifier: ^1.2.0
+      version: 1.2.0
     '@types/node':
       specifier: ^26.0.0
       version: 26.0.0
     '@types/pg':
       specifier: ^8.20.0
       version: 8.20.0
+    '@upyo/core':
+      specifier: 0.6.0-dev.263+e633e1e6
+      version: 0.6.0-dev.263
+    '@upyo/logtape':
+      specifier: 0.6.0-dev.263+e633e1e6
+      version: 0.6.0-dev.263
+    '@upyo/mock':
+      specifier: 0.6.0-dev.263+e633e1e6
+      version: 0.6.0-dev.263
+    '@upyo/smtp':
+      specifier: 0.6.0-dev.263+e633e1e6
+      version: 0.6.0-dev.263
     drizzle-orm:
       specifier: 1.0.0-beta.22
       version: 1.0.0-beta.22
@@ -63,17 +81,20 @@ importers:
         specifier: 'catalog:'
         version: 2.3.0-dev.840
       '@optique/core':
-        specifier: ^1.1.0
-        version: 1.1.0
+        specifier: 'catalog:'
+        version: 1.2.0
       '@optique/logtape':
         specifier: 'catalog:'
-        version: 1.1.1(@logtape/logtape@2.3.0-dev.840)
+        version: 1.2.0(@logtape/logtape@2.3.0-dev.840)
       '@optique/run':
-        specifier: ^1.1.0
-        version: 1.1.0
+        specifier: 'catalog:'
+        version: 1.2.0
+      '@upyo/logtape':
+        specifier: 'catalog:'
+        version: 0.6.0-dev.263(@logtape/logtape@2.3.0-dev.840)(@upyo/core@0.6.0-dev.263)
       '@upyo/smtp':
-        specifier: ^0.5.0
-        version: 0.5.0(@upyo/core@0.5.0)
+        specifier: 'catalog:'
+        version: 0.6.0-dev.263(@upyo/core@0.6.0-dev.263)
       drizzle-orm:
         specifier: 'catalog:'
         version: 1.0.0-beta.22(@electric-sql/pglite@0.5.3)(@types/pg@8.20.0)(pg@8.21.0)
@@ -127,11 +148,11 @@ importers:
         specifier: ^4.7.0
         version: 4.7.0(@pothos/core@4.13.0(graphql@16.14.2))(graphql@16.14.2)
       '@upyo/core':
-        specifier: ^0.5.0
-        version: 0.5.0
+        specifier: 'catalog:'
+        version: 0.6.0-dev.263
       '@upyo/mock':
-        specifier: ^0.5.0
-        version: 0.5.0(@upyo/core@0.5.0)
+        specifier: 'catalog:'
+        version: 0.6.0-dev.263(@upyo/core@0.6.0-dev.263)
       drizzle-orm:
         specifier: 'catalog:'
         version: 1.0.0-beta.22(@electric-sql/pglite@0.5.3)(@types/pg@8.20.0)(pg@8.21.0)
@@ -917,26 +938,22 @@ packages:
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
 
-  '@optique/core@1.1.0':
-    resolution: {integrity: sha512-eBqai76tHiFDoShlTNXN9AAPs9XznCJRrk4qmGhjZUSMmePCF9o1XU3okUHxHdDXXCHj4auKoIvCN79KNKErxA==}
+  '@optique/core@1.2.0':
+    resolution: {integrity: sha512-h3gHGe8BCo5iVpOt4CcWCmTnPDYdyys0XqOCCc5ZPA2A2S+GmupMkqYNeI57+SildteuGEgBrGP+MlwRlWdzPA==}
     engines: {bun: '>=1.2.0', deno: '>=2.3.0', node: '>=20.0.0'}
 
-  '@optique/core@1.1.1':
-    resolution: {integrity: sha512-tbZLdH5wEnh8IRG8KTmWPZCKHLmD4bXigoPdzoSUVi+V46qZTNEaTdqtR7EuEwhbPI0KQjLSYRZCxFTdr9OZkA==}
-    engines: {bun: '>=1.2.0', deno: '>=2.3.0', node: '>=20.0.0'}
-
-  '@optique/logtape@1.1.1':
-    resolution: {integrity: sha512-vpmMK0Y7dvrhQEXIGr+Pix+UXlJi4fp+NIX6s7xmpIjYfmms+lGw3dHPJhjJFoTthKJQCeBF88tjWAqwCJhVLg==}
+  '@optique/logtape@1.2.0':
+    resolution: {integrity: sha512-bzinVaWd75QKNoLy3eYffLY3dIajtxtmaZcPrpFIB5RVGCNfOBiBGn+fhVYOH6mZ4XaiByGa7Ly04iKX08+KNA==}
     engines: {bun: '>=1.2.0', deno: '>=2.3.0', node: '>=20.0.0'}
     peerDependencies:
-      '@logtape/file': ^2.0.4
-      '@logtape/logtape': ^2.0.4
+      '@logtape/file': ^2.2.2
+      '@logtape/logtape': ^2.2.2
     peerDependenciesMeta:
       '@logtape/file':
         optional: true
 
-  '@optique/run@1.1.0':
-    resolution: {integrity: sha512-dcuqqqU1Cpm9CLGEkCkpT/cpJ6H6a+hs0rP+iD8Tgwb+CPPZtX/hCfdIrqYyZ2RtYLxgc3S6KqC81AZAwEUPew==}
+  '@optique/run@1.2.0':
+    resolution: {integrity: sha512-4H+sJbpKlB0DsFYyJmyTj2atDdF+9j14MbH99zPTK7YGQysWQ4Vo8UR1O91+ssIDUnKkMNoss7zMvaMf6A52Jw==}
     engines: {bun: '>=1.2.0', deno: '>=2.3.0', node: '>=20.0.0'}
 
   '@oxc-project/types@0.135.0':
@@ -1542,21 +1559,28 @@ packages:
   '@ungap/structured-clone@1.3.2':
     resolution: {integrity: sha512-5jsZFwgR5rTdKwidH9Qmat75RKwqfpKlWWB1frDkljN127mwqBu8K0PYo7/hFpF03IEJpfVPpCQDY/eDx3iHvA==}
 
-  '@upyo/core@0.5.0':
-    resolution: {integrity: sha512-i7uwJtiQiUQ4cYx2BGy4hA3iM9Fh7XHEb6s2BxBDbNj8LAkcQYWF2o1rca/mIZP/rgbeGhCVNPY9tKYEBNUV+g==}
+  '@upyo/core@0.6.0-dev.263':
+    resolution: {integrity: sha512-8oA53ECfpvizlVDn5j/+S9gTxFZWqxonoyjLiJtV47Xiq0Jq1WCBQWTrGAsefNqjR4Y7+5loeWOnGZThZf2FkQ==}
     engines: {bun: '>=1.2.0', deno: '>=2.3.0', node: '>=20.0.0'}
 
-  '@upyo/mock@0.5.0':
-    resolution: {integrity: sha512-qkNzIvnbxrtoKLLtD1eV7vfUpznppXX1l6wlBkW5W9F1pHTTnM8GjFbyCAG/vrXX1bOavAz3YJGyt7ZnqiGf1w==}
+  '@upyo/logtape@0.6.0-dev.263':
+    resolution: {integrity: sha512-7WI9Q7C5DU9xX6vKCU3EhszRUqO5BE4zAegotvSxmZCNbrnOWnEJqC4nFmthNVUcFgKyI4QgCT8BSqlIhde7nA==}
     engines: {bun: '>=1.2.0', deno: '>=2.3.0', node: '>=20.0.0'}
     peerDependencies:
-      '@upyo/core': 0.5.0
+      '@logtape/logtape': ^2.2.4
+      '@upyo/core': 0.6.0-dev.263+e633e1e6
 
-  '@upyo/smtp@0.5.0':
-    resolution: {integrity: sha512-NjRHQN8n9AnyKYLQFOTe/c1ODd58Vv++423RAWnj6GbhGweqM1RatxvwJF4GZCwSM/Z/L0Ef7bmmLFb+gqjjZQ==}
+  '@upyo/mock@0.6.0-dev.263':
+    resolution: {integrity: sha512-8HZ2m3Pm9BqyICIhhriRqy4AXhYbWZwgCEey6KuswOyMQE/GTX1J3QRE/cmj5jLifVCx1Wk4s1R/ZnaeN2bbpA==}
     engines: {bun: '>=1.2.0', deno: '>=2.3.0', node: '>=20.0.0'}
     peerDependencies:
-      '@upyo/core': 0.5.0
+      '@upyo/core': 0.6.0-dev.263+e633e1e6
+
+  '@upyo/smtp@0.6.0-dev.263':
+    resolution: {integrity: sha512-cqbKQamkUU9qszmhQ7KjlQ3focPpf3Wqzyt9abowsjRw6VG1d4fGJc2qmmznTo5K8agqQOt6kpxHWzuwdvxClA==}
+    engines: {bun: '>=1.2.0', deno: '>=2.3.0', node: '>=20.0.0'}
+    peerDependencies:
+      '@upyo/core': 0.6.0-dev.263+e633e1e6
 
   '@vercel/nft@1.10.2':
     resolution: {integrity: sha512-w+WyX5Ulmj4dtTZrxaulqrjaLZHSbnPzx75SJsTNYmotKsqn1JlLnDJa+lz5hn90HJofhl/2MAtw0mCrgM3qYw==}
@@ -4371,18 +4395,16 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.20.1
 
-  '@optique/core@1.1.0': {}
+  '@optique/core@1.2.0': {}
 
-  '@optique/core@1.1.1': {}
-
-  '@optique/logtape@1.1.1(@logtape/logtape@2.3.0-dev.840)':
+  '@optique/logtape@1.2.0(@logtape/logtape@2.3.0-dev.840)':
     dependencies:
       '@logtape/logtape': 2.3.0-dev.840
-      '@optique/core': 1.1.1
+      '@optique/core': 1.2.0
 
-  '@optique/run@1.1.0':
+  '@optique/run@1.2.0':
     dependencies:
-      '@optique/core': 1.1.0
+      '@optique/core': 1.2.0
 
   '@oxc-project/types@0.135.0': {}
 
@@ -4963,15 +4985,20 @@ snapshots:
 
   '@ungap/structured-clone@1.3.2': {}
 
-  '@upyo/core@0.5.0': {}
+  '@upyo/core@0.6.0-dev.263': {}
 
-  '@upyo/mock@0.5.0(@upyo/core@0.5.0)':
+  '@upyo/logtape@0.6.0-dev.263(@logtape/logtape@2.3.0-dev.840)(@upyo/core@0.6.0-dev.263)':
     dependencies:
-      '@upyo/core': 0.5.0
+      '@logtape/logtape': 2.3.0-dev.840
+      '@upyo/core': 0.6.0-dev.263
 
-  '@upyo/smtp@0.5.0(@upyo/core@0.5.0)':
+  '@upyo/mock@0.6.0-dev.263(@upyo/core@0.6.0-dev.263)':
     dependencies:
-      '@upyo/core': 0.5.0
+      '@upyo/core': 0.6.0-dev.263
+
+  '@upyo/smtp@0.6.0-dev.263(@upyo/core@0.6.0-dev.263)':
+    dependencies:
+      '@upyo/core': 0.6.0-dev.263
 
   '@vercel/nft@1.10.2(rollup@4.62.2)':
     dependencies:

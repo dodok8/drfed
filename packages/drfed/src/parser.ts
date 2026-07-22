@@ -25,6 +25,7 @@ import { option } from "@optique/core/primitives";
 import { socketAddress, url } from "@optique/core/valueparser";
 import { loggingOptions } from "@optique/logtape";
 import { path } from "@optique/run/valueparser";
+import { LogTapeTransport } from "@upyo/logtape";
 import { SmtpTransport } from "@upyo/smtp";
 import { drizzle as drizzlePostgres } from "drizzle-orm/node-postgres";
 import { drizzle as drizzlePglite } from "drizzle-orm/pglite";
@@ -82,16 +83,20 @@ const postgresParser = map(
 );
 
 const smtpParser = map(
-  option("--smtp-url", "-s", url({ allowedProtocols: ["smtp:"] }), {
-    description: message`The URL of the SMTP server to deliver emails through.`,
-  }),
-  (smtpUrl) =>
-    new SmtpTransport({
-      host: smtpUrl.hostname,
-      port: smtpUrl.port === "" ? SMTP_DEFAULT_PORT : Number(smtpUrl.port),
-      // SMTPS for later
-      secure: false,
+  optional(
+    option("--smtp-url", "-s", url({ allowedProtocols: ["smtp:"] }), {
+      description: message`The URL of the SMTP server to deliver emails through.`,
     }),
+  ),
+  (smtpUrl: URL | undefined) =>
+    smtpUrl == null
+      ? new LogTapeTransport({ recordMessage: "inline" })
+      : new SmtpTransport({
+          host: smtpUrl.hostname,
+          port: smtpUrl.port === "" ? SMTP_DEFAULT_PORT : Number(smtpUrl.port),
+          // SMTPS for later
+          secure: false,
+        }),
 );
 const SMTP_DEFAULT_PORT = 25;
 
@@ -101,7 +106,11 @@ const seedParser = option("--dev-seed", {
 });
 
 export const parser = object({
-  logging: loggingOptions({ level: "option", short: "-L" }),
+  logging: loggingOptions({
+    level: "option",
+    short: "-L",
+    formatter: "--log-format",
+  }),
   address: withDefault(
     option("--listen", "-l", socketAddress({ requirePort: true }), {
       description: message`The address to listen on.`,
@@ -122,7 +131,7 @@ export const parser = object({
       ),
     }),
   ),
-  mailer: optional(smtpParser),
+  mailer: smtpParser,
   seed: seedParser,
 });
 

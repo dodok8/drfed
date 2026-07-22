@@ -21,6 +21,7 @@ import { migrate } from "@drfed/models";
 import { configure, getConsoleSink } from "@logtape/logtape";
 import { createLoggingConfig } from "@optique/logtape";
 import { run } from "@optique/run";
+import { SmtpTransport } from "@upyo/smtp";
 import { serve } from "srvx";
 
 // oxlint-disable-next-line import/no-relative-parent-imports
@@ -83,7 +84,9 @@ export async function main(): Promise<void> {
     port: options.address.port,
   });
   function shutdown() {
-    options.mailer?.closeAllConnections();
+    if (options.mailer instanceof SmtpTransport) {
+      options.mailer.closeAllConnections();
+    }
     // oxlint-disable-next-line promise/catch-or-return promise/prefer-await-to-then no-magic-numbers
     server.close().then(() => process.exit(0));
   }
