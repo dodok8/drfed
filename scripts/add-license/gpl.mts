@@ -1,7 +1,14 @@
 import { readFile } from "node:fs/promises";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 
-const GPL = (await readFile("./gpl.txt", { encoding: "utf-8" })).split("\n");
-const JS_GPL = GPL.map((line) => `// ${line}`).join("\n");
+const GPL_TXT_PATH = join(dirname(fileURLToPath(import.meta.url)), "gpl.txt");
+const GPL = (await readFile(GPL_TXT_PATH, { encoding: "utf-8" }))
+  .trimEnd()
+  .split("\n");
+const JS_GPL = GPL.map((line) => (line === "" ? "//" : `// ${line}`)).join(
+  "\n",
+);
 const CSS_GPL = ["/*", ...GPL, "*/"].join("\n");
 const GPL_BY_EXT = {
   ts: JS_GPL,
