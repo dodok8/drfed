@@ -1,4 +1,11 @@
 {
+  "ignorePatterns": [
+    "**/dist/*.{cjs,d.cts,d.mts,d.ts,js,mjs}",
+    ".agents/skills/",
+    ".claude/skills/",
+    "node_modules/",
+    "plans/"
+  ],
   "options": {
     "typeAware": true,
     "typeCheck": true
