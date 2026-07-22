@@ -31,6 +31,7 @@
     "eslint/no-ternary": "off",
     "eslint/no-undefined": "off",
     "eslint/no-void": "off",
+    "eslint/no-warning-comments": ["warn", { "terms": ["TODO"] }],
     "eslint/sort-keys": "off",
     "eslint/sort-imports": [
       "error",

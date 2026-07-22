@@ -29,16 +29,19 @@ export const sendMail = async (
     createMessage({
       from: ctx.emailFrom,
       to,
+      // FIXME: Internationalize the email subject
       subject: "Sign in to DrFed",
       content: renderLoginEmail({ ...verifier, origins: ctx.origins }),
     }),
   );
 
 const renderLoginEmail = (verifier: ExpandVerifyUrlParams): MessageContent => ({
-  text: `Hello, Welcome to DrFed! If you request to login to DrFed, please ${
-    // Prevent over 80.
-    linkOrRaw(expandVerifyUrl(verifier), verifier)
-  }. Otherwise, please just ignore this mail.`,
+  // FIXME: Internationalize the email content
+  text: `Hello, Welcome to DrFed! If you request to login to DrFed, please visit:
+
+${linkOrRaw(expandVerifyUrl(verifier), verifier)}
+
+Otherwise, please just ignore this mail.`,
 });
 
 const linkOrRaw = (
