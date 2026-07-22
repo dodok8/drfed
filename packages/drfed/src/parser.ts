@@ -21,7 +21,7 @@ import { merge, object, or } from "@optique/core/constructs";
 import { message, optionNames } from "@optique/core/message";
 import { map, optional, withDefault } from "@optique/core/modifiers";
 import type { InferValue } from "@optique/core/parser";
-import { flag, option } from "@optique/core/primitives";
+import { option } from "@optique/core/primitives";
 import { socketAddress, url } from "@optique/core/valueparser";
 import { loggingOptions } from "@optique/logtape";
 import { path } from "@optique/run/valueparser";
@@ -95,8 +95,9 @@ const smtpParser = map(
 );
 const SMTP_DEFAULT_PORT = 25;
 
-const seedParser = flag("--seed", {
+const seedParser = option("--dev-seed", {
   description: message`Seeding initial data for dev or test.`,
+  hidden: true,
 });
 
 export const parser = object({

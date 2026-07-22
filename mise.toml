@@ -120,6 +120,7 @@ flag "-L --log-level <level>" {
   help "Set log level"
 }
 flag "--log-output <path>" help="Write logs to a file"
+flag "-S --no-seed" help="Skip database seeding"
 '''
 run = "node scripts/dev.mts"
 

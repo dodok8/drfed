@@ -316,7 +316,6 @@ try {
     "../../.pgdata",
     "--listen=0.0.0.0:8888",
     "--smtp-url=smtp://localhost:1025",
-    "--seed",
   ];
 
   const logLevel = process.env.usage_log_level;
@@ -329,6 +328,11 @@ try {
   const logOutput = process.env.usage_log_output;
   if (logOutput != null && logOutput !== "") {
     serverArgs.push("--log-output", logOutput);
+  }
+
+  const seed = process.env.usage_no_seed !== "true";
+  if (seed) {
+    serverArgs.push("--dev-seed");
   }
 
   serverProcess = spawnManaged(
