@@ -5,7 +5,9 @@
   "ignorePatterns": [
     "*.md",
     "**/*.md",
-    "plans/",
-    "**/dist/*.{cjs,d.cts,d.mts,d.ts,js,mjs}"
+    "**/dist/*.{cjs,d.cts,d.mts,d.ts,js,mjs}",
+    ".agents/skills/",
+    ".claude/skills/",
+    "plans/"
   ]
 }
