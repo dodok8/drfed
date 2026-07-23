@@ -24,7 +24,7 @@ import {
 
 // oxlint-disable no-async-await
 const fetchFn: FetchFunction = async (params, variables) => {
-  const response = await fetch("http://0.0.0.0:8888/graphql", {
+  const response = await fetch("http://localhost:8888/graphql", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
